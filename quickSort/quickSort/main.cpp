@@ -10,6 +10,10 @@
 #include <vector>
 #include <fstream>
 
+#include <stdio.h>      /* printf, scanf, puts, NULL */
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>       /* time */
+
 using namespace std;
 
 typedef vector<int> Ints;
@@ -46,9 +50,7 @@ int medianOf(const Ints& V, int s, int e)
     v.push_back(V[(e + s) / 2]); index.push_back((e + s) / 2);
     v.push_back(e); index.push_back(e);
     
-//    print(v); print(index);
-    
-    int min, max, median; min = v[0]; max = v[2];
+    int min, max; min = v[0]; max = v[2];
     
     for (int i=0; i < v.size(); ++i)
     {
@@ -85,7 +87,8 @@ int partition(const Ints& V, int s, int e, Partition PARTITION = First)
         case Median:
             return medianOf(V, s, e);
         case Random:
-            return 0;
+            srand (time(NULL));
+            return rand() % (e - s) + s;
     }
     return 0;
 }
@@ -153,7 +156,7 @@ int main(int argc, const char * argv[])
     
     int n = 0;
     
-    quickSortAndCountComparisons(v, 0, v.size() - 1, n, Median);
+    quickSortAndCountComparisons(v, 0, v.size() - 1, n, Random);
     
     print(v); cout << n << endl;
     
